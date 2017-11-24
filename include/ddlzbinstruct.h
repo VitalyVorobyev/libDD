@@ -28,6 +28,8 @@ class DDlzBinStruct {
     ///
     DDlzBinStruct(double tau, double dm, double phi1, double wtag,
                   const std::string &fd, const std::string &fb);
+    inline auto tau() const {return m_tau;}
+    inline auto dm() const {return m_dm;}
   // Modificators //
     ///
     /// \brief Set_tau
