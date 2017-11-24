@@ -8,8 +8,8 @@
 #include <iostream>
 #include <cmath>
 
-typedef std::vector<double> vectd;
-typedef std::string str;
+using vectd = std::vector<double>;
+using str = std::string;
 
 using std::ifstream;
 using std::cout;
@@ -22,7 +22,7 @@ const str DlzBinStruct::m_format =
 const str DlzBinStruct::m_format_old =
         "%d: C = %lf, S = %lf, K = %lf, Kb = %lf, Q = %lf";
 
-DlzBinStruct::DlzBinStruct(const unsigned nbins) :
+DlzBinStruct::DlzBinStruct(unsigned nbins) :
     m_nbins(nbins) {
     m_C.resize(m_nbins, 0);
     m_S.resize(m_nbins, 0);
@@ -70,13 +70,13 @@ int DlzBinStruct::GetParams(const str& fname) {
     return m_nbins;
 }
 
-double DlzBinStruct::dilution(const int bin) const {
+double DlzBinStruct::dilution(int bin) const {
     if (!CheckBinNumber(bin)) return 0.;
     return 2. * m_C[bin-1] * sqrt(m_Kp[bin-1] * m_Kn[bin-1]) /
                                  (m_Kp[bin-1] + m_Kn[bin-1]);
 }
 
-bool DlzBinStruct::CheckBinNumber(const int bin) const {
+bool DlzBinStruct::CheckBinNumber(int bin) const {
     if (bin > 0 && bin <= m_nbins) {
         return true;
     } else {
@@ -85,55 +85,55 @@ bool DlzBinStruct::CheckBinNumber(const int bin) const {
     return false;
 }
 
-void DlzBinStruct::SetKp(const int bin, const double v) {
+void DlzBinStruct::SetKp(int bin, double v) {
     if (!CheckBinNumber(bin)) return;
     m_Kp[bin-1] = v;
     m_D[bin-1] = dilution(bin);
 }
 
-void DlzBinStruct::SetKn(const int bin, const double v) {
+void DlzBinStruct::SetKn(int bin, double v) {
     if (!CheckBinNumber(bin)) return;
     m_Kn[bin-1] = v;
     m_D[bin-1] = dilution(bin);
 }
 
-void DlzBinStruct::SetC(const int bin, const double v) {
+void DlzBinStruct::SetC(int bin, double v) {
     if (!CheckBinNumber(bin)) return;
     m_C[bin-1] = v;
     m_D[bin-1] = dilution(bin);
 }
 
-void DlzBinStruct::SetS(const int bin, const double v) {
+void DlzBinStruct::SetS(int bin, double v) {
     if (!CheckBinNumber(bin)) return;
     m_S[bin-1] = v;
 }
 
-void DlzBinStruct::SetD(const int bin, const double v) {
+void DlzBinStruct::SetD(int bin, double v) {
     if (!CheckBinNumber(bin)) return;
     m_D[bin-1] = v;
 }
 
-double DlzBinStruct::Kp(const int bin) const {
+double DlzBinStruct::Kp(int bin) const {
     if (!CheckBinNumber(abs(bin))) return 0;
     return bin > 0 ? m_Kp[bin-1] : m_Kn[-bin-1];
 }
 
-double DlzBinStruct::Kn(const int bin) const {
+double DlzBinStruct::Kn(int bin) const {
     if (!CheckBinNumber(abs(bin))) return 0;
     return bin > 0 ? m_Kn[bin - 1] : m_Kp[-bin - 1];
 }
 
-double DlzBinStruct::C(const int bin)  const {
+double DlzBinStruct::C(int bin)  const {
     if (!CheckBinNumber(abs(bin))) return 0;
     return m_C[abs(bin) - 1];
 }
 
-double DlzBinStruct::S(const int bin)  const {
+double DlzBinStruct::S(int bin)  const {
     if (!CheckBinNumber(abs(bin))) return 0;
     return bin > 0 ? m_S[bin - 1] : -m_S[-bin - 1];
 }
 
-double DlzBinStruct::D(const int bin) const {
+double DlzBinStruct::D(int bin) const {
     if (!CheckBinNumber(abs(bin))) return 0;
     return m_D[abs(bin) - 1];
 }
