@@ -29,7 +29,7 @@ DD::DDlzBinStruct(double tau, double dm, double phi1,
     CalcXiDelut();
 }
 
-void DD::CalcKKKK(int binb, int bind) {
+void DD::CalcKKKK(int binb, int bind) const {
     auto kpkp = m_ddlz->Kp(bind) * m_bdlz->Kp(binb);
     auto knkn = m_ddlz->Kn(bind) * m_bdlz->Kn(binb);
     m_kkpkk = kpkp + knkn;
@@ -96,7 +96,7 @@ double DD::CosCoefCP(int flv, int bbin) const {
     return coef;
 }
 
-double DD::SinCoefDD(int flv, int dbin, int bbin) {
+double DD::SinCoefDD(int flv, int dbin, int bbin) const {
     CalcKKKK(bbin, dbin);
     const double flvfact = -2. * m_delut * flv;
     const double kfact = sqrt(m_bdlz->Kp(bbin) * m_bdlz->Kn(bbin) *
@@ -119,7 +119,7 @@ double DD::SinCoefDD(int flv, int dbin, int bbin) {
     return coef;
 }
 
-double DD::CosCoefDD(int flv, int dbin, int bbin) {
+double DD::CosCoefDD(int flv, int dbin, int bbin) const {
     CalcKKKK(bbin, dbin);
     return m_delut * flv * m_kkmkk / m_kkpkk;
 }
@@ -131,7 +131,7 @@ double DD::DSinCoefCP(int flv, int cp, int bbin) const {
 
 double DD::DCosCoefCP(void) const { return 0;}
 
-double DD::DSinCoefDD(int flv, int dbin, int bbin) {
+double DD::DSinCoefDD(int flv, int dbin, int bbin) const {
     auto flvfact = -2. * m_bdlz->D(bbin) * m_delut * flv;
     auto kfact   = sqrt(m_ddlz->Kp(dbin) * m_ddlz->Kn(dbin)) /
                        (m_ddlz->Kp(dbin) + m_ddlz->Kn(dbin));
@@ -140,7 +140,7 @@ double DD::DSinCoefDD(int flv, int dbin, int bbin) {
     return flvfact * kfact * cpfact;
 }
 
-double DD::DCosCoefDD(int flv, int dbin) {
+double DD::DCosCoefDD(int flv, int dbin) const {
     auto coef = m_delut * flv * (m_ddlz->Kp(dbin) - m_ddlz->Kn(dbin)) /
                                 (m_ddlz->Kp(dbin) + m_ddlz->Kn(dbin));
     if (fabs(coef) > 1) {

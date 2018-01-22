@@ -2,8 +2,7 @@
  **
  **/
 
-#ifndef _HOME_VITALY_MYLIBS_LIBDD_INCLUDE_DDLZBINSTRUCT_H_
-#define _HOME_VITALY_MYLIBS_LIBDD_INCLUDE_DDLZBINSTRUCT_H_
+#pragma once
 
 #include <string>
 #include <memory>
@@ -16,6 +15,23 @@ namespace DDlz {
 /// \brief The DDlzBinStruct class
 ///
 class DDlzBinStruct {
+    mutable std::unique_ptr<DlzBinStruct> m_ddlz;
+    mutable std::unique_ptr<DlzBinStruct> m_bdlz;
+
+    double m_tau;
+    double m_dm;
+    double m_wrtag;
+
+    double m_sin2beta;
+    double m_cos2beta;
+
+    double m_xi, m_delut;
+
+    void CalcKKKK(int binb, int bind) const;
+    void CalcXiDelut(void);
+
+    mutable double m_kkpkk, m_kkmkk;
+
  public:
     ///
     /// \brief DDlzBinStruct
@@ -199,7 +215,7 @@ class DDlzBinStruct {
     /// \param bbin
     /// \return
     ///
-    double SinCoefDD(int flv, int dbin, int bbin);
+    double SinCoefDD(int flv, int dbin, int bbin) const;
     ///
     /// \brief CosCoefDD. cos(dt) factor for double Dalitz
     /// \param flv
@@ -207,7 +223,7 @@ class DDlzBinStruct {
     /// \param bbin
     /// \return
     ///
-    double CosCoefDD(int flv, int dbin, int bbin);
+    double CosCoefDD(int flv, int dbin, int bbin) const;
     ///
     /// \brief DSinCoefCP. sin(dt) factor for Dcp and averaged B Dalitz plot
     /// \param flv
@@ -229,7 +245,7 @@ class DDlzBinStruct {
     /// \param bbin
     /// \return
     ///
-    double DSinCoefDD(int flv, int dbin, int bbin);
+    double DSinCoefDD(int flv, int dbin, int bbin) const;
     ///
     /// \brief DCosCoefDD. cos(dt) factor for double Dalitz and averaged
     /// B Dalitz plot
@@ -237,31 +253,11 @@ class DDlzBinStruct {
     /// \param dbin
     /// \return
     ///
-    double DCosCoefDD(int flv, int dbin);
+    double DCosCoefDD(int flv, int dbin) const;
     ///
     /// \brief print_params
     ///
     void print_params(void) const;
-
- private:
-    std::unique_ptr<DlzBinStruct> m_ddlz;
-    std::unique_ptr<DlzBinStruct> m_bdlz;
-
-    double m_tau;
-    double m_dm;
-    double m_wrtag;
-
-    double m_sin2beta;
-    double m_cos2beta;
-
-    double m_xi, m_delut;
-
-    void CalcKKKK(int binb, int bind);
-    void CalcXiDelut(void);
-
-    double m_kkpkk, m_kkmkk;
 };
 
 }  // namespace DDlz
-
-#endif  // _HOME_VITALY_MYLIBS_LIBDD_INCLUDE_DDLZBINSTRUCT_H_

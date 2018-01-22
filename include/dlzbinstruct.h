@@ -2,8 +2,7 @@
  **
  **/
 
-#ifndef _HOME_VITALY_MYLIBS_LIBDD_INCLUDE_DLZBINSTRUCT_H_
-#define _HOME_VITALY_MYLIBS_LIBDD_INCLUDE_DLZBINSTRUCT_H_
+#pragma once
 
 #include <vector>
 #include <string>
@@ -15,6 +14,51 @@ namespace DDlz {
 /// Dalitz plot parameters
 ///
 class DlzBinStruct {
+    ///
+    /// \brief dilution
+    /// \param bin
+    /// \return
+    ///
+    double dilution(int bin) const;
+    ///
+    /// \brief CheckBinNumber
+    /// \param bin
+    /// \return
+    ///
+    bool CheckBinNumber(int bin) const;
+    ///
+    /// \brief m_nbins
+    ///
+    int m_nbins;
+    ///
+    /// \brief m_C
+    ///
+    std::vector<double> m_C;
+    ///
+    /// \brief m_S
+    ///
+    std::vector<double> m_S;
+    ///
+    /// \brief m_Kp
+    ///
+    std::vector<double> m_Kp;
+    ///
+    /// \brief m_Kn
+    ///
+    std::vector<double> m_Kn;
+    ///
+    /// \brief m_D
+    ///
+    std::vector<double> m_D;
+    /**
+     * @brief m_format. Config file string format
+     */
+    static const std::string m_format;
+    /**
+     * @brief m_format_old. Deprecated
+     */
+    static const std::string m_format_old;
+
  public:
     ///
     /// \brief DlzBinStruct
@@ -101,54 +145,6 @@ class DlzBinStruct {
     /// \brief Clear
     ///
     void Clear(void);
-
- private:
-    ///
-    /// \brief dilution
-    /// \param bin
-    /// \return
-    ///
-    double dilution(int bin) const;
-    ///
-    /// \brief CheckBinNumber
-    /// \param bin
-    /// \return
-    ///
-    bool CheckBinNumber(int bin) const;
-    ///
-    /// \brief m_nbins
-    ///
-    int m_nbins;
-    ///
-    /// \brief m_C
-    ///
-    std::vector<double> m_C;
-    ///
-    /// \brief m_S
-    ///
-    std::vector<double> m_S;
-    ///
-    /// \brief m_Kp
-    ///
-    std::vector<double> m_Kp;
-    ///
-    /// \brief m_Kn
-    ///
-    std::vector<double> m_Kn;
-    ///
-    /// \brief m_D
-    ///
-    std::vector<double> m_D;
-    /**
-     * @brief m_format. Config file string format
-     */
-    static const std::string m_format;
-    /**
-     * @brief m_format_old. Deprecated
-     */
-    static const std::string m_format_old;
 };
 
 }  // namespace DDlz
-
-#endif  // _HOME_VITALY_MYLIBS_LIBDD_INCLUDE_DLZBINSTRUCT_H_
